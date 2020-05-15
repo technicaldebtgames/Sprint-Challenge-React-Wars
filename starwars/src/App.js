@@ -1,58 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
 import axios from 'axios';
 import Character from './components/Character.js'
-import {CHAR_TAG, EP_TAG, LOC_TAG, API_URL} from "./constants.js"
+import {CHAR_TAG, API_URL} from "./constants.js"
 import './App.css';
 
-const AppContainer = styled.div`
-
-`;
-
-const AppTitle = styled.div`
-
-`;
-
+// create App component
 const App = () => {
-  // Try to think through what state you'll need for this app before starting. Then build out
-  // the state properties here.
 
-  // Fetch characters from the API in an effect hook. Remember, anytime you have a 
-  // side effect in a component, you want to think about which state and/or props it should
-  // sync up with, if any.
-
+  // create state vars
   let [characters, setCharacters] = useState([]);
 
-  useEffect(() => {
+  // prevents an infinite loop that was happening
+  if (characters.length === 0){
 
     // Build the api url string
     let apiString = `${API_URL}${CHAR_TAG}`;
-    // done building api string
-  
-    // use api string to get data
+
+    // use api string to get data and insert into state vars when results from call
     axios.get(`${apiString}`)
     .then(result => {
-      console.log(result);
-      setCharacters(result.data.results);
-      console.log(characters);
+        setCharacters(result.data.results);
     })
     .catch (error => {
-      console.log("Error fetching data from API.");
-    })
-    .finally ( () => {
-      console.log("API call has finished.");
+        console.log("Error fetching data from API.");
     });
+  }
 
-  });
-
+  // return elements
   return (
     <div className="App">
       <h1 className="Header">Characters</h1>
       {characters.map(characterData => {
         return <Character key={characterData.id} character={characterData}/>
-        console.log("passing these as key and character to props:");
-        console.log(characterData.id);
-        console.log(characterData);
       })}
     </div>
   )
