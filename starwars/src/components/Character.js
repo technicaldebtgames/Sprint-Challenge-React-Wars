@@ -11,7 +11,7 @@ const CharacterContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
 
     padding: 10px;
     margin: 10px;
@@ -67,6 +67,40 @@ const CharacterName = styled.h2`
 
 `;
 
+const Connector = styled.div`
+
+    background-color: #82491Eff;
+
+    .connectorTop {
+
+        padding: 50px;
+
+        background-color: #A6EEE6FF;
+        border-bottom-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+
+    }
+
+    .connectorMid {
+
+        padding: 50px;
+
+        background-color: #82491Eff;
+
+    }
+
+    .connectorBot {
+
+        padding: 50px;
+
+        background-color: #A6EEE6FF;
+        border-top-left-radius: 50px;
+        border-top-right-radius: 50px;
+
+    }
+
+`;
+
 const CharacterStatus = styled.h3`
 /*No add'l style needed*/
 `;
@@ -89,6 +123,11 @@ export default function Character(props) {
     return (
         <CharacterContainer>
             <CharacterImage src={props.character.image}></CharacterImage>
+            <Connector>
+                <div className='connectorTop'></div>
+                <div className='connectorMid'></div>
+                <div className='connectorBot'></div>
+            </Connector>
             <CharacterInnerContainer>
                 <CharacterName>Name: {props.character.name}</CharacterName>
                 <CharacterStatus>Status: {props.character.status}</CharacterStatus>
